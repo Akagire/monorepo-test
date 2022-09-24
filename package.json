@@ -10,6 +10,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "dev:frontend": "yarn workspace @monorepo-test/frontend run dev"
+    "dev:frontend": "yarn workspace @monorepo-test/frontend run dev",
+    "dev:backend": "yarn workspace @monorepo-test/backend run dev"
   }
 }
