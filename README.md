@@ -99,3 +99,22 @@ Note that `typescript@4.8.3` uses frontend too. So I uses this version.
 Touch `./tsconfig.base.json` from previous tsconfig's build option.
 
 And, each package touched `tsconfig.json` extends from base.json.
+
+### 10. `.eslintrc.js` inheritance via monorepo's package
+
+1. create `eslint-config` package directory in `packages`
+2. `yarn init -y` and rename package name to `@monorepo-test/eslint-config`
+  The reasons that adopt this name, please read https://eslint.org/docs/latest/developer-guide/shareable-configs
+3. create `index.js` to configure eslint shareable config. I love these rules so I setted.
+  - extends eslint recommended and prettier
+  - `semi` to always
+  - `quotes` to single
+  - `comma-dangle` to always-multiline
+  - `quote-props` to as-needed
+4. install eslint, @typescript-eslint/parser and plugins to frontend and backend package
+5. install `@monorepo-test/eslint-config` in frontend and backend via following command
+  ```sh
+  yarn workspace @monorepo-test/{frontend|backend} add -D @monorepo-test/eslint-config
+  ```
+6. extends each package from @monorepo-test/eslint-config
+7. add `lint` script to backend package
