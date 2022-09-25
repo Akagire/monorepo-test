@@ -67,3 +67,35 @@ cf) https://expressjs.com/ja/starter/hello-world.html
     "dev:backend": "yarn workspace @monorepo-test/backend run dev" // <= add
   }
 ```
+
+### 8. Backend uses TypeScript
+
+```sh
+yarn workspace @monorepo-test/backend add -D @types/express @types/node ts-node typescript@4.8.3 --exact
+```
+
+Note that `typescript@4.8.3` uses frontend too. So I uses this version.
+
+- move app.js to index.ts
+- `script` change `node` to `ts-node`
+
+### 9. `tsconfig.json` inheritance
+
+| options                          | frontend | backend   | enable |
+| -------------------------------- | -------- | --------- | ------ |
+| target                           | es5      | es2016    |        |
+| skipLibCheck                     | true     | true      | *      |
+| strict                           | true     | true      | *      |
+| forceConsistentCasingInFileNames | true     | true      | *      |
+| noEmit                           | true     | - (false) |        |
+| esModuleInterop                  | true     | false     |        |
+| module                           | esnext   | commonjs  |        |
+| moduleResolution                 | node     | - (?)     |        |
+| resolveJsonModule                | true     | - (false) |        |
+| isolatedModules                  | true     | - (false) |        |
+| jsx                              | preserve | - (?)     |        |
+| incremental                      | true     | - (false) |        |
+
+Touch `./tsconfig.base.json` from previous tsconfig's build option.
+
+And, each package touched `tsconfig.json` extends from base.json.
